@@ -19,7 +19,7 @@ namespace Discord.NET_Sharded_Template.Modules
         public async Task PingAsync()
         {
             await ReplyAsync("Pong!");
-            this.logger.LogInformation($"{Context.User.Username} executed the ping command!");
+            this.logger.LogInformation($"{Context.User.Username} ran the ping command!");
         }
 
         [Command("shard")]
@@ -32,7 +32,7 @@ namespace Discord.NET_Sharded_Template.Modules
         public async Task EchoAsync([Remainder] string text)
         {
             await this.ReplyAsync(text);
-            this.logger.LogInformation($"{Context.User.Username} executed the echo command!");
+            this.logger.LogInformation($"{Context.User.Username} ran the echo command!");
         }
 
         [Command("math")]
@@ -42,7 +42,7 @@ namespace Discord.NET_Sharded_Template.Modules
             var result = dt.Compute(math, null);
 
             await this.ReplyAsync($"Result: {result}");
-            this.logger.LogInformation($"{Context.User.Username} executed the math command!");
+            this.logger.LogInformation($"{Context.User.Username} ran the math command!");
         }
     }
 }

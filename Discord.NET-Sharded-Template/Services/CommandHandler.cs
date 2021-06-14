@@ -32,7 +32,7 @@ namespace Discord.NET_Sharded_Template.Services
             await this.commandService.AddModulesAsync(Assembly.GetEntryAssembly(), this.provider);
 
             await this.Client.WaitForReadyAsync(stoppingToken);
-            Logger.LogInformation($"Client is ready, running on {this.Client.Shards} shard(s).");
+            Logger.LogInformation($"Client is ready, running on {this.Client.Shards.Count} shard(s).");
         }
 
         private async Task OnMessageReceived(SocketMessage socketMessage)
@@ -43,7 +43,7 @@ namespace Discord.NET_Sharded_Template.Services
             }
 
             var argPos = 0;
-            if (!message.HasStringPrefix(this.configuration["prefix"], ref argPos) && !message.HasMentionPrefix(this.Client.CurrentUser, ref argPos)) return;
+            if (!message.HasStringPrefix(this.configuration["Prefix"], ref argPos) && !message.HasMentionPrefix(this.Client.CurrentUser, ref argPos)) return;
 
             var context = new ShardedCommandContext(this.Client, message);
             await this.commandService.ExecuteAsync(context, argPos, this.provider);

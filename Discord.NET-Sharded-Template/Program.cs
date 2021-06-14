@@ -28,24 +28,27 @@ namespace Discord.NET_Sharded_Template
                 .ConfigureLogging(x =>
                 {
                     x.AddConsole();
-                    x.SetMinimumLevel(LogLevel.Debug);
+
+                    // Set the minimum log level that will be displayed in the console.
+                    x.SetMinimumLevel(LogLevel.Information);
                 })
                 .ConfigureDiscordShardedHost((context, configuration) =>
                 {
                     configuration.SocketConfig = new DiscordSocketConfig
                     {
-                        LogLevel = LogSeverity.Verbose,
+                        LogLevel = LogSeverity.Verbose, // Define when logs should be sent to the console (depending on log severity).
                         AlwaysDownloadUsers = true,
                         MessageCacheSize = 200,
+                        TotalShards = 5 // Define the amount of shars to use, uses recommended amount when left empty.
                     };
 
-                    configuration.Token = context.Configuration["token"];
+                    configuration.Token = context.Configuration["Token"]; // Pass the token through the appsettings.json file.
                 })
                 .UseCommandService((context, config) =>
                 {
-                    config.CaseSensitiveCommands = false;
-                    config.LogLevel = LogSeverity.Verbose;
-                    config.DefaultRunMode = RunMode.Sync;
+                    config.CaseSensitiveCommands = false; // Define whether or not commands should be case-sensitive.
+                    config.LogLevel = LogSeverity.Verbose; // Define when logs of the command service should be sent to the console (depending on log severity).
+                    config.DefaultRunMode = RunMode.Sync; // Define the default run mode (whether or not to separate commands from the main gateway).
                 })
                 .ConfigureServices((context, services) =>
                 {
